@@ -1,5 +1,5 @@
 import torch
-from dataset import BinaryCovid
+from utils.dataset import BinaryCovid
 from torch.utils.data import DataLoader
 
 def save_checkpoint(state,filename="Ritwik_checkpoint.pth.tar"):
