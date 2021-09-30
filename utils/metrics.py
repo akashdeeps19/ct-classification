@@ -78,7 +78,7 @@ def get_mae(preds, actual):
     MAE = 0
     for (pred, output) in zip(preds, actual):
         MAE += mae(pred, output)
-    return MAE
+    return MAE/len(preds)
 
 def get_metrics(pred_path, actual_path, tsize):
     preds = load_images(pred_path,tsize)
