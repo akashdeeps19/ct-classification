@@ -2,6 +2,7 @@ import torch
 import torch.utils.data as data
 import torchvision.transforms as transforms
 from PIL import Image
+import os
 
 def binary_loader( path):
     with open(path, 'rb') as f:
