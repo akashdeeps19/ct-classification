@@ -71,6 +71,15 @@ def get_fscore(preds, actual):
         f1_neg+=F1_neg
     return f1_pos/len(preds), f1_neg/len(preds)
 
+def mae(outputs: torch.Tensor, labels: torch.Tensor):
+    return (outputs - labels).abs().mean()
+
+def get_mae(preds, actual):
+    MAE = 0
+    for (pred, output) in zip(preds, actual):
+        MAE += mae(pred, output)
+    return MAE
+
 def get_metrics(pred_path, actual_path, tsize):
     preds = load_images(pred_path,tsize)
     actual = load_images(actual_path,tsize)
@@ -78,4 +87,5 @@ def get_metrics(pred_path, actual_path, tsize):
     metrics['dice'] = get_dice(preds, actual)
     metrics['sensitivity'], metrics['specificity'] = get_fscore(preds, actual)
     metrics['iou'] = get_iou(preds, actual)
+    metrics['mae'] = get_mae(preds, actual)
     return metrics
