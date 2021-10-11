@@ -1,11 +1,11 @@
 import torch.nn.functional as F
 
-from unet_att_parts import *
+from UNets.unet_att_parts import *
 
 
-class UNet(nn.Module):
+class CBAM_UNet(nn.Module):
     def __init__(self, n_channels, n_classes, bilinear=True,reduction_ratio=8):
-        super(UNet, self).__init__()
+        super(CBAM_UNet, self).__init__()
         self.n_channels = n_channels
         self.n_classes = n_classes
         self.bilinear = bilinear
