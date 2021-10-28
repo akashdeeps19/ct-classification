@@ -1,5 +1,5 @@
 import torch
-from utils.dataset import BinaryCovid
+from utils.dataset import BinaryCovid, EnsembleDataset
 from torch.utils.data import DataLoader
 
 def save_checkpoint(state,filename="Ritwik_checkpoint.pth.tar"):
@@ -9,6 +9,22 @@ def save_checkpoint(state,filename="Ritwik_checkpoint.pth.tar"):
 def load_checkpoint(checkpoint,model):
   print("Loading")
   model.load_state_dict(checkpoint["state_dict"])
+
+def load_ensemble_data(train_img1_dir,train_img2_dir, train_gt_dir,batch_size,trainsize,num_workers=2,pin_memory=True):
+
+  train_dataset = EnsembleDataset(image1_root = train_img1_dir,
+                              image2_root = train_img2_dir,
+                              gt_root = train_gt_dir,
+                              trainsize = trainsize,
+                              )
+  train_loader = DataLoader(
+      train_dataset,
+      batch_size=batch_size,
+      num_workers=num_workers,
+      pin_memory=pin_memory,
+      shuffle=True
+  )
+  return train_loader
 
 def load_data(train_img_dir,train_gt_dir,val_img_dir,val_gt_dir,batch_size,trainsize,num_workers=2,pin_memory=True):
 
