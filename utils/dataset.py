@@ -101,16 +101,20 @@ class EnsembleDataset(Dataset):
         return image_tr,gt_tr
     
     def filter_files(self):
-        assert len(self.images) == len(self.gts)
-        images = []
+        assert len(self.images1) == len(self.gts)
+        images1 = []
+        images2 = []
         gts = []
-        for img_path, gt_path in zip(self.images, self.gts):
-            img = Image.open(img_path)
+        for img1_path,img2_path, gt_path in zip(self.images1,self.images2, self.gts):
+            img1 = Image.open(img1_path)
+            img2 = Image.open(img2_path)
             gt = Image.open(gt_path)
-            if img.size == gt.size:
-                images.append(img_path)
+            if img1.size == gt.size:
+                images1.append(img1_path)
+                images2.append(img2_path)
                 gts.append(gt_path)
-        self.images = images
+        self.images1 = images1
+        self.images2 = images2
         self.gts = gts
         
     def rgb_loader(self,path):
